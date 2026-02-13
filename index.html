@@ -1189,40 +1189,23 @@
     <!-- Supabase for real-time sync -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Supabase config
-        const SUPABASE_URL = 'https://wfwglzrsuuqidscdqgao.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmd2dsenJzdXVxaWRzY2RxZ2FvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4MTI4MDcsImV4cCI6MjA4NTM4ODgwN30.Tpnv0rJBE1WCmdpt-yHzLIbnNrpriFeAJQeY2y33VlM';
+        // Track state locally
+        let checklistState = JSON.parse(localStorage.getItem('maui2026') || '{}');
+        let supabaseClient = null;
         
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        // Track state locally for quick updates
-        let checklistState = {};
-        
-        // Load state from Supabase
-        async function loadState() {
-            try {
-                const { data, error } = await supabase
-                    .from('trip_checklist')
-                    .select('*');
-                
-                if (error) throw error;
-                
-                // Build state object
-                data.forEach(item => {
-                    checklistState[item.id] = item.completed;
-                });
-                
-                // Apply state to UI
-                applyStateToUI();
-            } catch (err) {
-                console.error('Error loading state:', err);
-                // Fall back to localStorage
-                checklistState = JSON.parse(localStorage.getItem('maui2026') || '{}');
-                applyStateToUI();
+        // Try to initialize Supabase (but don't break if it fails)
+        try {
+            if (window.supabase && window.supabase.createClient) {
+                supabaseClient = window.supabase.createClient(
+                    'https://wfwglzrsuuqidscdqgao.supabase.co',
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmd2dsenJzdXVxaWRzY2RxZ2FvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4MTI4MDcsImV4cCI6MjA4NTM4ODgwN30.Tpnv0rJBE1WCmdpt-yHzLIbnNrpriFeAJQeY2y33VlM'
+                );
             }
+        } catch (e) {
+            console.log('Supabase not available, using local storage only');
         }
         
-        // Apply state to all checkable items
+        // Apply saved state to UI on load
         function applyStateToUI() {
             document.querySelectorAll('.checklist-item, .packing-item').forEach(item => {
                 const id = item.dataset.id;
@@ -1232,56 +1215,73 @@
                     item.classList.remove('completed');
                 }
             });
-            updateProgress();
         }
         
-        // Save state to Supabase
-        async function saveState(id, completed) {
-            // Update local state immediately
+        // Load state from Supabase (async, non-blocking)
+        async function loadFromCloud() {
+            if (!supabaseClient) return;
+            
+            try {
+                const { data, error } = await supabaseClient
+                    .from('trip_checklist')
+                    .select('*');
+                
+                if (!error && data) {
+                    data.forEach(item => {
+                        checklistState[item.id] = item.completed;
+                    });
+                    localStorage.setItem('maui2026', JSON.stringify(checklistState));
+                    applyStateToUI();
+                    updateProgress();
+                }
+            } catch (err) {
+                console.log('Cloud sync unavailable');
+            }
+        }
+        
+        // Save state
+        function saveState(id, completed) {
             checklistState[id] = completed;
             localStorage.setItem('maui2026', JSON.stringify(checklistState));
             
-            try {
-                const { error } = await supabase
+            // Sync to cloud if available
+            if (supabaseClient) {
+                supabaseClient
                     .from('trip_checklist')
-                    .upsert({ 
-                        id: id, 
-                        completed: completed,
-                        updated_at: new Date().toISOString(),
-                        updated_by: 'family'
-                    }, { onConflict: 'id' });
-                
-                if (error) throw error;
-            } catch (err) {
-                console.error('Error saving state:', err);
+                    .upsert({ id, completed, updated_at: new Date().toISOString(), updated_by: 'family' })
+                    .then(() => {})
+                    .catch(() => {});
             }
         }
         
         // Subscribe to real-time updates
         function subscribeToChanges() {
-            supabase
-                .channel('trip_checklist_changes')
-                .on('postgres_changes', 
-                    { event: '*', schema: 'public', table: 'trip_checklist' },
-                    (payload) => {
-                        // Update local state
-                        if (payload.new) {
-                            checklistState[payload.new.id] = payload.new.completed;
-                            
-                            // Update specific item in UI
-                            const item = document.querySelector(`[data-id="${payload.new.id}"]`);
-                            if (item) {
-                                if (payload.new.completed) {
-                                    item.classList.add('completed');
-                                } else {
-                                    item.classList.remove('completed');
+            if (!supabaseClient) return;
+            
+            try {
+                supabaseClient
+                    .channel('trip_sync')
+                    .on('postgres_changes', 
+                        { event: '*', schema: 'public', table: 'trip_checklist' },
+                        (payload) => {
+                            if (payload.new) {
+                                checklistState[payload.new.id] = payload.new.completed;
+                                const item = document.querySelector(`[data-id="${payload.new.id}"]`);
+                                if (item) {
+                                    if (payload.new.completed) {
+                                        item.classList.add('completed');
+                                    } else {
+                                        item.classList.remove('completed');
+                                    }
+                                    updateProgress();
                                 }
-                                updateProgress();
                             }
                         }
-                    }
-                )
-                .subscribe();
+                    )
+                    .subscribe();
+            } catch (e) {
+                console.log('Real-time sync not available');
+            }
         }
         
         // Tab switching
@@ -1305,7 +1305,7 @@
             const activeTab = document.querySelector('.tab-content.active');
             let total, completed, label;
             
-            if (activeTab.id === 'itinerary') {
+            if (activeTab && activeTab.id === 'itinerary') {
                 total = document.querySelectorAll('#itinerary .checklist-item').length;
                 completed = document.querySelectorAll('#itinerary .checklist-item.completed').length;
                 label = 'adventures';
@@ -1343,9 +1343,7 @@
         document.querySelectorAll('.checklist-item').forEach(item => {
             item.addEventListener('click', () => {
                 item.classList.toggle('completed');
-                const id = item.dataset.id;
-                const completed = item.classList.contains('completed');
-                saveState(id, completed);
+                saveState(item.dataset.id, item.classList.contains('completed'));
                 updateProgress();
             });
         });
@@ -1354,15 +1352,15 @@
         document.querySelectorAll('.packing-item').forEach(item => {
             item.addEventListener('click', () => {
                 item.classList.toggle('completed');
-                const id = item.dataset.id;
-                const completed = item.classList.contains('completed');
-                saveState(id, completed);
+                saveState(item.dataset.id, item.classList.contains('completed'));
                 updateProgress();
             });
         });
         
-        // Initialize
-        loadState();
+        // Initialize - apply local state first, then sync from cloud
+        applyStateToUI();
+        updateProgress();
+        loadFromCloud();
         subscribeToChanges();
     </script>
 </body>
