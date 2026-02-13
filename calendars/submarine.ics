@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Alex Carter//Maui Trip//EN
+BEGIN:VEVENT
+UID:maui-submarine-2026@calvinbagley.com
+DTSTAMP:20260212T060000Z
+DTSTART:20260215T190000Z
+DTEND:20260215T203000Z
+SUMMARY:⚓ Atlantis Submarine Tour - BOOKED
+DESCRIPTION:Underwater adventure!\n45 minutes exploring the ocean depths.\n\nAfter: North coast scenic drive\n• Kapalua Tidepools\n• Dragon's Teeth\n• Nakalele Blowhole\n• Julia's Banana Bread (cash only!)
+LOCATION:Lahaina Harbor, Maui, Hawaii
+END:VEVENT
+END:VCALENDAR

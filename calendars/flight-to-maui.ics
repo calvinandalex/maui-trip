@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Alex Carter//Maui Trip//EN
+BEGIN:VEVENT
+UID:maui-flight-out-2026@calvinbagley.com
+DTSTAMP:20260212T060000Z
+DTSTART:20260213T152000Z
+DTEND:20260213T214400Z
+SUMMARY:✈️ Flight to Maui (HA 931)
+DESCRIPTION:Hawaiian Airlines HA 931\nLas Vegas (LAS) → Kahului (OGG)\nDepart: 7:20 AM PST\nArrive: 11:44 AM HST\nConfirmation: WDOGMQ
+LOCATION:Las Vegas McCarran International Airport (LAS)
+END:VEVENT
+END:VCALENDAR

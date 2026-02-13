@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Alex Carter//Maui Trip//EN
+BEGIN:VEVENT
+UID:maui-flight-home-2026@calvinbagley.com
+DTSTAMP:20260212T060000Z
+DTSTART:20260217T215000Z
+DTEND:20260218T032500Z
+SUMMARY:✈️ Flight Home (HA 932)
+DESCRIPTION:Hawaiian Airlines HA 932\nKahului (OGG) → Las Vegas (LAS)\nDepart: 11:50 AM HST\nArrive: 7:25 PM PST\nConfirmation: WDOGMQ\n\nReminder: Check out by 11 AM, grab lunch at Tin Roof near airport!
+LOCATION:Kahului Airport (OGG), Maui, Hawaii
+END:VEVENT
+END:VCALENDAR

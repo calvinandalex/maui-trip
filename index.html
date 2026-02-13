@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maui Trip - Feb 13-17, 2026</title>
+    <title>🌺 Maui 2026 - Bagley Family</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -12,60 +15,206 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(180deg, #87CEEB 0%, #98D8C8 50%, #F7DC6F 100%);
+            background-attachment: fixed;
             min-height: 100vh;
             padding: 20px;
+            padding-bottom: 100px;
+        }
+        
+        /* Floating decorations */
+        body::before {
+            content: '🌴';
+            position: fixed;
+            top: 20px;
+            left: 10px;
+            font-size: 40px;
+            opacity: 0.6;
+            animation: sway 3s ease-in-out infinite;
+            z-index: 0;
+        }
+        
+        body::after {
+            content: '🌺';
+            position: fixed;
+            top: 80px;
+            right: 15px;
+            font-size: 30px;
+            opacity: 0.6;
+            animation: float 4s ease-in-out infinite;
+            z-index: 0;
+        }
+        
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
         }
         
         .container {
             max-width: 600px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
         
         header {
             text-align: center;
-            color: white;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
         
         header h1 {
-            font-size: 2em;
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5em;
+            color: #E74C3C;
             margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         
-        header p {
-            opacity: 0.9;
+        header .subtitle {
             font-size: 1.1em;
+            color: #2C3E50;
+            margin-bottom: 12px;
+        }
+        
+        header .family {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        .progress-container {
+            background: #E8F6F3;
+            border-radius: 15px;
+            padding: 12px 16px;
+            margin-top: 10px;
+        }
+        
+        .progress-bar {
+            background: #D5DBDB;
+            border-radius: 10px;
+            height: 12px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #2ECC71, #27AE60);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            color: #27AE60;
+            font-weight: 700;
+            font-size: 0.95em;
+            margin-top: 8px;
         }
         
         .day-card {
             background: white;
-            border-radius: 16px;
-            margin-bottom: 16px;
+            border-radius: 20px;
+            margin-bottom: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transition: transform 0.2s;
+        }
+        
+        .day-card:hover {
+            transform: translateY(-2px);
         }
         
         .day-header {
-            padding: 16px 20px;
+            padding: 18px 20px;
             color: white;
-            font-weight: 600;
-            font-size: 1.1em;
+            font-weight: 700;
+            font-size: 1.15em;
+            position: relative;
+            overflow: hidden;
         }
         
-        .day-1 .day-header { background: #FF6B6B; }
-        .day-2 .day-header { background: #FF8E53; }
-        .day-3 .day-header { background: #FFC93C; color: #333; }
-        .day-4 .day-header { background: #6BCB77; }
-        .day-5 .day-header { background: #4D96FF; }
+        .day-header::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .day-1 .day-header { background: linear-gradient(135deg, #E74C3C, #C0392B); }
+        .day-2 .day-header { background: linear-gradient(135deg, #E91E63, #AD1457); }
+        .day-3 .day-header { background: linear-gradient(135deg, #3498DB, #2980B9); }
+        .day-4 .day-header { background: linear-gradient(135deg, #27AE60, #1E8449); }
+        .day-5 .day-header { background: linear-gradient(135deg, #9B59B6, #7D3C98); }
         
         .day-subtitle {
-            font-weight: normal;
-            opacity: 0.9;
+            font-weight: 400;
+            opacity: 0.95;
             font-size: 0.85em;
             display: block;
             margin-top: 4px;
+        }
+        
+        .day-icon {
+            font-size: 1.4em;
+            margin-right: 8px;
+        }
+        
+        /* Prep box */
+        .prep-box {
+            background: linear-gradient(135deg, #FFF9E6, #FEF5E7);
+            border-left: 4px solid #F39C12;
+            padding: 14px 16px;
+            margin: 0;
+        }
+        
+        .prep-box h4 {
+            font-size: 0.85em;
+            color: #D68910;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .prep-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .prep-box li {
+            font-size: 0.9em;
+            color: #6E2C00;
+            padding: 3px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .prep-box li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #F39C12;
+            font-weight: bold;
         }
         
         .checklist {
@@ -75,10 +224,12 @@
         .checklist-item {
             display: flex;
             align-items: flex-start;
-            padding: 12px 8px;
+            padding: 14px 10px;
             border-bottom: 1px solid #f0f0f0;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            border-radius: 10px;
+            margin: 2px 0;
         }
         
         .checklist-item:last-child {
@@ -86,11 +237,15 @@
         }
         
         .checklist-item:hover {
-            background: #f9f9f9;
+            background: #f8f9fa;
+        }
+        
+        .checklist-item:active {
+            transform: scale(0.98);
         }
         
         .checklist-item.completed {
-            opacity: 0.6;
+            opacity: 0.5;
         }
         
         .checklist-item.completed .item-text {
@@ -98,27 +253,35 @@
         }
         
         .checkbox {
-            width: 24px;
-            height: 24px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            margin-right: 12px;
+            width: 28px;
+            height: 28px;
+            border: 3px solid #BDC3C7;
+            border-radius: 8px;
+            margin-right: 14px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
         
         .checklist-item.completed .checkbox {
-            background: #6BCB77;
-            border-color: #6BCB77;
+            background: linear-gradient(135deg, #2ECC71, #27AE60);
+            border-color: #27AE60;
+            animation: pop 0.3s ease;
+        }
+        
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
         
         .checkbox::after {
             content: '✓';
             color: white;
             font-weight: bold;
+            font-size: 16px;
             opacity: 0;
             transition: opacity 0.2s;
         }
@@ -133,215 +296,257 @@
         
         .item-time {
             font-size: 0.8em;
-            color: #888;
+            color: #7F8C8D;
+            font-weight: 600;
             margin-bottom: 2px;
         }
         
         .item-text {
-            font-size: 1em;
-            color: #333;
+            font-size: 1.05em;
+            color: #2C3E50;
+            font-weight: 600;
         }
         
         .item-details {
-            font-size: 0.85em;
-            color: #666;
+            font-size: 0.88em;
+            color: #7F8C8D;
             margin-top: 4px;
         }
         
         .booking-info {
-            background: #f8f9fa;
-            padding: 16px 20px;
+            background: #F8F9FA;
+            padding: 14px 18px;
             border-top: 1px solid #eee;
         }
         
         .booking-info h4 {
-            font-size: 0.8em;
-            color: #888;
+            font-size: 0.75em;
+            color: #95A5A6;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
         
         .booking-info p {
             font-size: 0.9em;
-            color: #555;
-            margin-bottom: 4px;
-        }
-        
-        .progress-bar {
-            background: rgba(255,255,255,0.3);
-            border-radius: 10px;
-            height: 8px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            background: white;
-            height: 100%;
-            border-radius: 10px;
-            transition: width 0.3s;
-        }
-        
-        .progress-text {
-            color: white;
-            font-size: 0.9em;
-            margin-top: 8px;
-            opacity: 0.9;
-        }
-        
-        .emoji {
-            margin-right: 6px;
+            color: #34495E;
+            margin-bottom: 2px;
         }
 
         .tip {
-            background: #fff3cd;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 0.85em;
-            color: #856404;
-            margin: 8px 16px 16px;
+            background: linear-gradient(135deg, #E8F8F5, #D5F5E3);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            color: #1E8449;
+            margin: 12px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
         }
         
-        .tip::before {
-            content: '💡 ';
+        .tip-icon {
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+        
+        .ocean-wave {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(180deg, transparent, rgba(52, 152, 219, 0.3));
+            z-index: 0;
+            animation: wave 3s ease-in-out infinite;
+        }
+        
+        /* Fun completion celebration */
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4em;
+            z-index: 100;
+            animation: celebrate 1s ease-out forwards;
+        }
+        
+        @keyframes celebrate {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
         }
     </style>
 </head>
 <body>
+    <div class="ocean-wave"></div>
+    <div class="celebration" id="celebration">🎉</div>
+    
     <div class="container">
         <header>
             <h1>🌺 Maui 2026</h1>
-            <p>Feb 13-17 • Bagley Family</p>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+            <p class="subtitle">February 13-17</p>
+            <p class="family">👨‍👩‍👧‍👦 Calvin • Karissa • Christian • Victoria</p>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text">🏝️ <span id="progressText">0 of 0</span> adventures completed!</p>
             </div>
-            <p class="progress-text"><span id="progressText">0 of 0</span> completed</p>
         </header>
 
         <!-- Day 1 -->
         <div class="day-card day-1">
             <div class="day-header">
-                <span class="emoji">✈️</span>Friday, Feb 13
+                <span class="day-icon">✈️</span>Friday, Feb 13
                 <span class="day-subtitle">Arrival & Pool Day</span>
+            </div>
+            <div class="prep-box">
+                <h4>🎒 Pack for Today</h4>
+                <ul>
+                    <li>Carry-on snacks for the flight</li>
+                    <li>Swimsuits in easy-access bag</li>
+                    <li>Reef-safe sunscreen</li>
+                    <li>Flip flops for the pool</li>
+                </ul>
             </div>
             <div class="checklist">
                 <div class="checklist-item" data-id="1-1">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-time">7:20 AM</div>
-                        <div class="item-text">Depart Las Vegas (HA 931)</div>
-                        <div class="item-details">Hawaiian Airlines • Arrive 11:44 AM HST</div>
+                        <div class="item-time">7:20 AM PST</div>
+                        <div class="item-text">✈️ Depart Las Vegas</div>
+                        <div class="item-details">Hawaiian Airlines HA 931 • Arrive 11:44 AM HST</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="1-2">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">12:00 PM</div>
-                        <div class="item-text">Pick up Jeep at airport</div>
-                        <div class="item-details">Avis • Conf: 02256960US6</div>
+                        <div class="item-text">🚙 Pick up Jeep at airport</div>
+                        <div class="item-details">Avis counter • Conf: 02256960US6</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="1-3">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Quick grocery stop</div>
-                        <div class="item-details">Snacks, drinks, sunscreen</div>
+                        <div class="item-text">🛒 Quick grocery stop</div>
+                        <div class="item-details">Snacks, drinks, reef-safe sunscreen</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="1-4">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">4:00 PM</div>
-                        <div class="item-text">Check into hotel</div>
-                        <div class="item-details">Outrigger Honua Kai • Conf: 949851462</div>
+                        <div class="item-text">🏨 Check into hotel</div>
+                        <div class="item-details">Outrigger Honua Kai Resort • Conf: 949851462</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="1-5">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Afternoon</div>
-                        <div class="item-text">Pool & beach time! 🏖️</div>
-                        <div class="item-details">Kaanapali Beach right at hotel</div>
+                        <div class="item-text">🏖️ Pool & beach time!</div>
+                        <div class="item-details">Kaanapali Beach right at the hotel</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="1-6">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Evening</div>
-                        <div class="item-text">Casual dinner near hotel</div>
+                        <div class="item-text">🍽️ Casual dinner near hotel</div>
                         <div class="item-details">Duke's Beach House or Leilani's</div>
                     </div>
                 </div>
+            </div>
+            <div class="booking-info">
+                <h4>Flight Confirmation</h4>
+                <p><strong>WDOGMQ</strong> • Hawaiian Airlines</p>
             </div>
         </div>
 
         <!-- Day 2 -->
         <div class="day-card day-2">
             <div class="day-header">
-                <span class="emoji">💕</span>Saturday, Feb 14
+                <span class="day-icon">💕</span>Saturday, Feb 14
                 <span class="day-subtitle">Road to Hana • Valentine's Day</span>
             </div>
-            <div class="tip">Start early (7am) to avoid crowds. Bring snacks & dramamine!</div>
+            <div class="prep-box">
+                <h4>🎒 Pack for Today</h4>
+                <ul>
+                    <li>Dramamine (620 curves!)</li>
+                    <li>Snacks & water bottles in cooler</li>
+                    <li>Water shoes for waterfalls</li>
+                    <li>Swimsuits (Twin Falls splash!)</li>
+                    <li>Camera/phone charger</li>
+                    <li>Cash for banana bread stands</li>
+                </ul>
+            </div>
+            <div class="tip">
+                <span class="tip-icon">⏰</span>
+                <span>Leave by 7am to beat the crowds! 64 miles, 620 curves, 59 bridges ahead.</span>
+            </div>
             <div class="checklist">
                 <div class="checklist-item" data-id="2-1">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">7:00 AM</div>
-                        <div class="item-text">Depart for Road to Hana</div>
-                        <div class="item-details">64 miles, 620 curves, 59 bridges</div>
+                        <div class="item-text">🚗 Depart for Road to Hana</div>
+                        <div class="item-details">Fill up gas, load the cooler!</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="2-2">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Mile 2</div>
-                        <div class="item-text">Twin Falls</div>
-                        <div class="item-details">Easy short walk, kids can splash</div>
+                        <div class="item-text">💦 Twin Falls</div>
+                        <div class="item-details">Easy walk, kids can splash in the pools</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="2-3">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Mile 10</div>
-                        <div class="item-text">Garden of Eden Arboretum</div>
-                        <div class="item-details">Paved paths, beautiful gardens</div>
+                        <div class="item-text">🌿 Garden of Eden Arboretum</div>
+                        <div class="item-details">Paved paths, beautiful gardens, great photos</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="2-4">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Mile 17</div>
-                        <div class="item-text">Ke'anae Peninsula Lookout</div>
-                        <div class="item-details">Stunning views from the car</div>
+                        <div class="item-text">📸 Ke'anae Peninsula Lookout</div>
+                        <div class="item-details">Stunning coastal views from the car</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="2-5">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Halfway to Hana Stand</div>
-                        <div class="item-details">Best banana bread on the island 🍌</div>
+                        <div class="item-text">🍌 Halfway to Hana Stand</div>
+                        <div class="item-details">Best banana bread on the island!</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="2-6">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Mile 32</div>
-                        <div class="item-text">Wai'anapanapa State Park</div>
-                        <div class="item-details">Black sand beach!</div>
+                        <div class="item-text">🖤 Wai'anapanapa State Park</div>
+                        <div class="item-details">Famous black sand beach!</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="2-7">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Lunch in Hana Town</div>
+                        <div class="item-text">🍔 Lunch in Hana Town</div>
                         <div class="item-details">Hana Ranch Restaurant</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="2-8">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Drive back (same route)</div>
+                        <div class="item-text">🔙 Drive back (same route)</div>
                         <div class="item-details">Jeep not allowed on backside road</div>
                     </div>
                 </div>
@@ -349,8 +554,8 @@
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Evening</div>
-                        <div class="item-text">Valentine's Dinner 💕</div>
-                        <div class="item-details">Find a spot you love!</div>
+                        <div class="item-text">💕 Valentine's Dinner</div>
+                        <div class="item-details">Find a romantic spot together!</div>
                     </div>
                 </div>
             </div>
@@ -359,15 +564,25 @@
         <!-- Day 3 -->
         <div class="day-card day-3">
             <div class="day-header">
-                <span class="emoji">🌊</span>Sunday, Feb 15
+                <span class="day-icon">🌊</span>Sunday, Feb 15
                 <span class="day-subtitle">Submarine & North Coast</span>
+            </div>
+            <div class="prep-box">
+                <h4>🎒 Pack for Today</h4>
+                <ul>
+                    <li>Comfortable clothes for submarine</li>
+                    <li>Camera for coastal drive</li>
+                    <li>Cash for Julia's banana bread</li>
+                    <li>Swimsuits for afternoon pool</li>
+                    <li>Light jacket (can be windy at blowhole)</li>
+                </ul>
             </div>
             <div class="checklist">
                 <div class="checklist-item" data-id="3-1">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">9:00 AM</div>
-                        <div class="item-text">Atlantis Submarine ⚓</div>
+                        <div class="item-text">⚓ Atlantis Submarine</div>
                         <div class="item-details">Lahaina Harbor • BOOKED ✓</div>
                     </div>
                 </div>
@@ -375,34 +590,34 @@
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">~11:15 AM</div>
-                        <div class="item-text">Start scenic drive from Kapalua</div>
+                        <div class="item-text">🚗 Start scenic drive from Kapalua</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="3-3">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Kapalua Tidepools</div>
-                        <div class="item-details">Beautiful coastal pools</div>
+                        <div class="item-text">🏊 Kapalua Tidepools</div>
+                        <div class="item-details">Beautiful natural pools by the coast</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="3-4">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Dragon's Teeth</div>
+                        <div class="item-text">🦷 Dragon's Teeth</div>
                         <div class="item-details">Last cell service! Take family photos 📸</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="3-5">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Nakalele Blowhole</div>
+                        <div class="item-text">💨 Nakalele Blowhole</div>
                         <div class="item-details">Easy 100ft walk from road</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="3-6">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Julia's Banana Bread 🍌</div>
+                        <div class="item-text">🍌 Julia's Banana Bread</div>
                         <div class="item-details">Kahakuloa Village • Cash only!</div>
                     </div>
                 </div>
@@ -410,14 +625,14 @@
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">~4:00 PM</div>
-                        <div class="item-text">Back to hotel for beach/pool</div>
+                        <div class="item-text">🏖️ Back to hotel for beach/pool</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="3-8">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Evening</div>
-                        <div class="item-text">Casual dinner</div>
+                        <div class="item-text">🍽️ Casual dinner</div>
                         <div class="item-details">Monkeypod Kitchen or room service</div>
                     </div>
                 </div>
@@ -427,45 +642,59 @@
         <!-- Day 4 -->
         <div class="day-card day-4">
             <div class="day-header">
-                <span class="emoji">🌋</span>Monday, Feb 16
+                <span class="day-icon">🌋</span>Monday, Feb 16
                 <span class="day-subtitle">Haleakala & Upcountry</span>
             </div>
-            <div class="tip">Bring jackets! Summit is ~40°F</div>
+            <div class="prep-box">
+                <h4>🎒 Pack for Today</h4>
+                <ul>
+                    <li><strong>WARM JACKETS!</strong> Summit is ~40°F</li>
+                    <li>Long pants for everyone</li>
+                    <li>Closed-toe shoes (not flip flops)</li>
+                    <li>Layers you can remove on way down</li>
+                    <li>Blanket to wrap up (optional)</li>
+                    <li>Sunglasses (very bright at 10,000 ft)</li>
+                </ul>
+            </div>
+            <div class="tip">
+                <span class="tip-icon">🥶</span>
+                <span>Beach level is 80°F but the summit is 40°F! You'll go through multiple climate zones.</span>
+            </div>
             <div class="checklist">
                 <div class="checklist-item" data-id="4-1">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Mid-morning</div>
-                        <div class="item-text">Drive to Haleakala Crater</div>
-                        <div class="item-details">10,023 ft elevation • Amazing views</div>
+                        <div class="item-text">🚗 Drive to Haleakala Crater</div>
+                        <div class="item-details">10,023 ft elevation • Amazing views!</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="4-2">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Explore the summit</div>
+                        <div class="item-text">📸 Explore the summit</div>
                         <div class="item-details">Photos at the crater overlook</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="4-3">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Ali'i Kula Lavender Farm</div>
+                        <div class="item-text">💜 Ali'i Kula Lavender Farm</div>
                         <div class="item-details">Gentle stroll through lavender fields</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="4-4">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Surfing Goat Dairy</div>
-                        <div class="item-details">Fun for kids, cheese tasting</div>
+                        <div class="item-text">🐐 Surfing Goat Dairy</div>
+                        <div class="item-details">Fun for kids, cheese tasting!</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="4-5">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Lunch</div>
-                        <div class="item-text">Kula Lodge</div>
+                        <div class="item-text">🍽️ Kula Lodge</div>
                         <div class="item-details">Incredible upcountry views</div>
                     </div>
                 </div>
@@ -473,15 +702,15 @@
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Dinner</div>
-                        <div class="item-text">Hali'imaile General Store</div>
-                        <div class="item-details">Famous farm-to-table • Walk-in OK</div>
+                        <div class="item-text">⭐ Hali'imaile General Store</div>
+                        <div class="item-details">Famous farm-to-table • Walk-in friendly</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="4-7">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Evening</div>
-                        <div class="item-text">Pack for departure tomorrow</div>
+                        <div class="item-text">🧳 Pack for departure tomorrow</div>
                     </div>
                 </div>
             </div>
@@ -490,15 +719,25 @@
         <!-- Day 5 -->
         <div class="day-card day-5">
             <div class="day-header">
-                <span class="emoji">🏠</span>Tuesday, Feb 17
+                <span class="day-icon">🏠</span>Tuesday, Feb 17
                 <span class="day-subtitle">Final Beach & Home</span>
+            </div>
+            <div class="prep-box">
+                <h4>🎒 Before Checkout</h4>
+                <ul>
+                    <li>Check all drawers & closets</li>
+                    <li>Grab phone chargers</li>
+                    <li>Check under beds (kids' stuff!)</li>
+                    <li>Return room keys</li>
+                    <li>Keep swimsuits accessible for final swim</li>
+                </ul>
             </div>
             <div class="checklist">
                 <div class="checklist-item" data-id="5-1">
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">Morning</div>
-                        <div class="item-text">Final pool/beach time! ☀️</div>
+                        <div class="item-text">🏖️ Final pool/beach time!</div>
                         <div class="item-details">One last swim for the kids</div>
                     </div>
                 </div>
@@ -506,35 +745,34 @@
                     <div class="checkbox"></div>
                     <div class="item-content">
                         <div class="item-time">11:00 AM</div>
-                        <div class="item-text">Check out of hotel</div>
+                        <div class="item-text">🏨 Check out of hotel</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="5-3">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Return Jeep at airport</div>
+                        <div class="item-text">🚙 Return Jeep at airport</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="5-4">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-text">Lunch at Tin Roof (Kahului)</div>
+                        <div class="item-text">🍱 Lunch at Tin Roof (Kahului)</div>
                         <div class="item-details">Amazing poke bowls near airport</div>
                     </div>
                 </div>
                 <div class="checklist-item" data-id="5-5">
                     <div class="checkbox"></div>
                     <div class="item-content">
-                        <div class="item-time">11:50 AM</div>
-                        <div class="item-text">Depart Maui (HA 932)</div>
-                        <div class="item-details">Arrive Las Vegas 7:25 PM</div>
+                        <div class="item-time">11:50 AM HST</div>
+                        <div class="item-text">✈️ Depart Maui</div>
+                        <div class="item-details">HA 932 • Arrive Las Vegas 7:25 PM PST</div>
                     </div>
                 </div>
             </div>
             <div class="booking-info">
                 <h4>Flight Home</h4>
-                <p><strong>Hawaiian Airlines HA 932</strong></p>
-                <p>Confirmation: WDOGMQ</p>
+                <p><strong>WDOGMQ</strong> • Hawaiian Airlines HA 932</p>
             </div>
         </div>
 
@@ -560,6 +798,14 @@
             
             document.getElementById('progressFill').style.width = percent + '%';
             document.getElementById('progressText').textContent = `${completed} of ${total}`;
+            
+            // Celebration when all done!
+            if (completed === total && total > 0) {
+                document.getElementById('celebration').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('celebration').style.display = 'none';
+                }, 1000);
+            }
         }
         
         updateProgress();
