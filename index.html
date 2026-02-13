@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maui Trip - Feb 13-17, 2026</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        
+        header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .day-card {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .day-header {
+            padding: 16px 20px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        .day-1 .day-header { background: #FF6B6B; }
+        .day-2 .day-header { background: #FF8E53; }
+        .day-3 .day-header { background: #FFC93C; color: #333; }
+        .day-4 .day-header { background: #6BCB77; }
+        .day-5 .day-header { background: #4D96FF; }
+        
+        .day-subtitle {
+            font-weight: normal;
+            opacity: 0.9;
+            font-size: 0.85em;
+            display: block;
+            margin-top: 4px;
+        }
+        
+        .checklist {
+            padding: 12px 16px;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 8px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        
+        .checklist-item:hover {
+            background: #f9f9f9;
+        }
+        
+        .checklist-item.completed {
+            opacity: 0.6;
+        }
+        
+        .checklist-item.completed .item-text {
+            text-decoration: line-through;
+        }
+        
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .checklist-item.completed .checkbox {
+            background: #6BCB77;
+            border-color: #6BCB77;
+        }
+        
+        .checkbox::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .checklist-item.completed .checkbox::after {
+            opacity: 1;
+        }
+        
+        .item-content {
+            flex: 1;
+        }
+        
+        .item-time {
+            font-size: 0.8em;
+            color: #888;
+            margin-bottom: 2px;
+        }
+        
+        .item-text {
+            font-size: 1em;
+            color: #333;
+        }
+        
+        .item-details {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        .booking-info {
+            background: #f8f9fa;
+            padding: 16px 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .booking-info h4 {
+            font-size: 0.8em;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .booking-info p {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 4px;
+        }
+        
+        .progress-bar {
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            height: 8px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: white;
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+        
+        .progress-text {
+            color: white;
+            font-size: 0.9em;
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+        
+        .emoji {
+            margin-right: 6px;
+        }
+
+        .tip {
+            background: #fff3cd;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            color: #856404;
+            margin: 8px 16px 16px;
+        }
+        
+        .tip::before {
+            content: '💡 ';
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌺 Maui 2026</h1>
+            <p>Feb 13-17 • Bagley Family</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="progress-text"><span id="progressText">0 of 0</span> completed</p>
+        </header>
+
+        <!-- Day 1 -->
+        <div class="day-card day-1">
+            <div class="day-header">
+                <span class="emoji">✈️</span>Friday, Feb 13
+                <span class="day-subtitle">Arrival & Pool Day</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item" data-id="1-1">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">7:20 AM</div>
+                        <div class="item-text">Depart Las Vegas (HA 931)</div>
+                        <div class="item-details">Hawaiian Airlines • Arrive 11:44 AM HST</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="1-2">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">12:00 PM</div>
+                        <div class="item-text">Pick up Jeep at airport</div>
+                        <div class="item-details">Avis • Conf: 02256960US6</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="1-3">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Quick grocery stop</div>
+                        <div class="item-details">Snacks, drinks, sunscreen</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="1-4">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">4:00 PM</div>
+                        <div class="item-text">Check into hotel</div>
+                        <div class="item-details">Outrigger Honua Kai • Conf: 949851462</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="1-5">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Afternoon</div>
+                        <div class="item-text">Pool & beach time! 🏖️</div>
+                        <div class="item-details">Kaanapali Beach right at hotel</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="1-6">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Evening</div>
+                        <div class="item-text">Casual dinner near hotel</div>
+                        <div class="item-details">Duke's Beach House or Leilani's</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-card day-2">
+            <div class="day-header">
+                <span class="emoji">💕</span>Saturday, Feb 14
+                <span class="day-subtitle">Road to Hana • Valentine's Day</span>
+            </div>
+            <div class="tip">Start early (7am) to avoid crowds. Bring snacks & dramamine!</div>
+            <div class="checklist">
+                <div class="checklist-item" data-id="2-1">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">7:00 AM</div>
+                        <div class="item-text">Depart for Road to Hana</div>
+                        <div class="item-details">64 miles, 620 curves, 59 bridges</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="2-2">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Mile 2</div>
+                        <div class="item-text">Twin Falls</div>
+                        <div class="item-details">Easy short walk, kids can splash</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="2-3">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Mile 10</div>
+                        <div class="item-text">Garden of Eden Arboretum</div>
+                        <div class="item-details">Paved paths, beautiful gardens</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="2-4">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Mile 17</div>
+                        <div class="item-text">Ke'anae Peninsula Lookout</div>
+                        <div class="item-details">Stunning views from the car</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="2-5">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Halfway to Hana Stand</div>
+                        <div class="item-details">Best banana bread on the island 🍌</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="2-6">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Mile 32</div>
+                        <div class="item-text">Wai'anapanapa State Park</div>
+                        <div class="item-details">Black sand beach!</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="2-7">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Lunch in Hana Town</div>
+                        <div class="item-details">Hana Ranch Restaurant</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="2-8">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Drive back (same route)</div>
+                        <div class="item-details">Jeep not allowed on backside road</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="2-9">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Evening</div>
+                        <div class="item-text">Valentine's Dinner 💕</div>
+                        <div class="item-details">Find a spot you love!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card day-3">
+            <div class="day-header">
+                <span class="emoji">🌊</span>Sunday, Feb 15
+                <span class="day-subtitle">Submarine & North Coast</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item" data-id="3-1">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">9:00 AM</div>
+                        <div class="item-text">Atlantis Submarine ⚓</div>
+                        <div class="item-details">Lahaina Harbor • BOOKED ✓</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="3-2">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">~11:15 AM</div>
+                        <div class="item-text">Start scenic drive from Kapalua</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="3-3">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Kapalua Tidepools</div>
+                        <div class="item-details">Beautiful coastal pools</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="3-4">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Dragon's Teeth</div>
+                        <div class="item-details">Last cell service! Take family photos 📸</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="3-5">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Nakalele Blowhole</div>
+                        <div class="item-details">Easy 100ft walk from road</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="3-6">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Julia's Banana Bread 🍌</div>
+                        <div class="item-details">Kahakuloa Village • Cash only!</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="3-7">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">~4:00 PM</div>
+                        <div class="item-text">Back to hotel for beach/pool</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="3-8">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Evening</div>
+                        <div class="item-text">Casual dinner</div>
+                        <div class="item-details">Monkeypod Kitchen or room service</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card day-4">
+            <div class="day-header">
+                <span class="emoji">🌋</span>Monday, Feb 16
+                <span class="day-subtitle">Haleakala & Upcountry</span>
+            </div>
+            <div class="tip">Bring jackets! Summit is ~40°F</div>
+            <div class="checklist">
+                <div class="checklist-item" data-id="4-1">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Mid-morning</div>
+                        <div class="item-text">Drive to Haleakala Crater</div>
+                        <div class="item-details">10,023 ft elevation • Amazing views</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="4-2">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Explore the summit</div>
+                        <div class="item-details">Photos at the crater overlook</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="4-3">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Ali'i Kula Lavender Farm</div>
+                        <div class="item-details">Gentle stroll through lavender fields</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="4-4">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Surfing Goat Dairy</div>
+                        <div class="item-details">Fun for kids, cheese tasting</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="4-5">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Lunch</div>
+                        <div class="item-text">Kula Lodge</div>
+                        <div class="item-details">Incredible upcountry views</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="4-6">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Dinner</div>
+                        <div class="item-text">Hali'imaile General Store</div>
+                        <div class="item-details">Famous farm-to-table • Walk-in OK</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="4-7">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Evening</div>
+                        <div class="item-text">Pack for departure tomorrow</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card day-5">
+            <div class="day-header">
+                <span class="emoji">🏠</span>Tuesday, Feb 17
+                <span class="day-subtitle">Final Beach & Home</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item" data-id="5-1">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">Morning</div>
+                        <div class="item-text">Final pool/beach time! ☀️</div>
+                        <div class="item-details">One last swim for the kids</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="5-2">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">11:00 AM</div>
+                        <div class="item-text">Check out of hotel</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="5-3">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Return Jeep at airport</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="5-4">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-text">Lunch at Tin Roof (Kahului)</div>
+                        <div class="item-details">Amazing poke bowls near airport</div>
+                    </div>
+                </div>
+                <div class="checklist-item" data-id="5-5">
+                    <div class="checkbox"></div>
+                    <div class="item-content">
+                        <div class="item-time">11:50 AM</div>
+                        <div class="item-text">Depart Maui (HA 932)</div>
+                        <div class="item-details">Arrive Las Vegas 7:25 PM</div>
+                    </div>
+                </div>
+            </div>
+            <div class="booking-info">
+                <h4>Flight Home</h4>
+                <p><strong>Hawaiian Airlines HA 932</strong></p>
+                <p>Confirmation: WDOGMQ</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Load saved state
+        const savedState = JSON.parse(localStorage.getItem('maui2026') || '{}');
+        
+        // Apply saved state
+        document.querySelectorAll('.checklist-item').forEach(item => {
+            const id = item.dataset.id;
+            if (savedState[id]) {
+                item.classList.add('completed');
+            }
+        });
+        
+        // Update progress
+        function updateProgress() {
+            const total = document.querySelectorAll('.checklist-item').length;
+            const completed = document.querySelectorAll('.checklist-item.completed').length;
+            const percent = total > 0 ? (completed / total) * 100 : 0;
+            
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').textContent = `${completed} of ${total}`;
+        }
+        
+        updateProgress();
+        
+        // Handle clicks
+        document.querySelectorAll('.checklist-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('completed');
+                
+                // Save state
+                const id = item.dataset.id;
+                const state = JSON.parse(localStorage.getItem('maui2026') || '{}');
+                state[id] = item.classList.contains('completed');
+                localStorage.setItem('maui2026', JSON.stringify(state));
+                
+                updateProgress();
+            });
+        });
+    </script>
+</body>
+</html>
