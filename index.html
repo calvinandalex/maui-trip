@@ -70,7 +70,7 @@
         
         header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             padding: 20px;
             background: rgba(255,255,255,0.9);
             border-radius: 20px;
@@ -122,6 +122,182 @@
             font-weight: 700;
             font-size: 0.95em;
             margin-top: 8px;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            background: rgba(255,255,255,0.9);
+            border-radius: 16px;
+            padding: 6px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.95em;
+            font-weight: 700;
+            color: #7F8C8D;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn:hover {
+            background: #F8F9FA;
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, #E74C3C, #C0392B);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Packing List Styles */
+        .packing-person {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .person-header {
+            padding: 18px 20px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .person-header .emoji {
+            font-size: 1.8em;
+        }
+        
+        .person-header .info {
+            flex: 1;
+        }
+        
+        .person-header .name {
+            display: block;
+        }
+        
+        .person-header .subtitle {
+            font-size: 0.7em;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        .person-progress {
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.75em;
+        }
+        
+        .calvin .person-header { background: linear-gradient(135deg, #3498DB, #2980B9); }
+        .karissa .person-header { background: linear-gradient(135deg, #E91E63, #AD1457); }
+        .christian .person-header { background: linear-gradient(135deg, #27AE60, #1E8449); }
+        .victoria .person-header { background: linear-gradient(135deg, #9B59B6, #7D3C98); }
+        
+        .packing-category {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .packing-category:last-child {
+            border-bottom: none;
+        }
+        
+        .category-title {
+            font-size: 0.85em;
+            font-weight: 700;
+            color: #95A5A6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .packing-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 8px;
+            margin: 2px 0;
+        }
+        
+        .packing-item:hover {
+            background: #f8f9fa;
+        }
+        
+        .packing-item.completed {
+            opacity: 0.5;
+        }
+        
+        .packing-item.completed .pack-text {
+            text-decoration: line-through;
+        }
+        
+        .pack-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #BDC3C7;
+            border-radius: 6px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .packing-item.completed .pack-checkbox {
+            background: linear-gradient(135deg, #2ECC71, #27AE60);
+            border-color: #27AE60;
+        }
+        
+        .pack-checkbox::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            opacity: 0;
+        }
+        
+        .packing-item.completed .pack-checkbox::after {
+            opacity: 1;
+        }
+        
+        .pack-text {
+            font-size: 0.95em;
+            color: #2C3E50;
+        }
+        
+        .pack-note {
+            font-size: 0.8em;
+            color: #95A5A6;
+            margin-left: auto;
+            padding-left: 10px;
         }
         
         .day-card {
@@ -393,411 +569,683 @@
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
-                <p class="progress-text">🏝️ <span id="progressText">0 of 0</span> adventures completed!</p>
+                <p class="progress-text">🏝️ <span id="progressText">0 of 0</span> completed!</p>
             </div>
         </header>
 
-        <!-- Day 1 -->
-        <div class="day-card day-1">
-            <div class="day-header">
-                <span class="day-icon">✈️</span>Friday, Feb 13
-                <span class="day-subtitle">Arrival & Pool Day</span>
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="itinerary">📅 Itinerary</button>
+            <button class="tab-btn" data-tab="packing">🧳 Packing Lists</button>
+        </div>
+
+        <!-- Itinerary Tab -->
+        <div class="tab-content active" id="itinerary">
+            <!-- Day 1 -->
+            <div class="day-card day-1">
+                <div class="day-header">
+                    <span class="day-icon">✈️</span>Friday, Feb 13
+                    <span class="day-subtitle">Arrival & Pool Day</span>
+                </div>
+                <div class="prep-box">
+                    <h4>🎒 Pack for Today</h4>
+                    <ul>
+                        <li>Carry-on snacks for the flight</li>
+                        <li>Swimsuits in easy-access bag</li>
+                        <li>Reef-safe sunscreen</li>
+                        <li>Flip flops for the pool</li>
+                    </ul>
+                </div>
+                <div class="checklist">
+                    <div class="checklist-item" data-id="1-1">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">7:20 AM PST</div>
+                            <div class="item-text">✈️ Depart Las Vegas</div>
+                            <div class="item-details">Hawaiian Airlines HA 931 • Arrive 11:44 AM HST</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="1-2">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">12:00 PM</div>
+                            <div class="item-text">🚙 Pick up Jeep at airport</div>
+                            <div class="item-details">Avis counter • Conf: 02256960US6</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="1-3">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">🛒 Quick grocery stop</div>
+                            <div class="item-details">Snacks, drinks, reef-safe sunscreen</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="1-4">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">4:00 PM</div>
+                            <div class="item-text">🏨 Check into hotel</div>
+                            <div class="item-details">Outrigger Honua Kai Resort • Conf: 949851462</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="1-5">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Afternoon</div>
+                            <div class="item-text">🏖️ Pool & beach time!</div>
+                            <div class="item-details">Kaanapali Beach right at the hotel</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="1-6">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Evening</div>
+                            <div class="item-text">🍽️ Casual dinner near hotel</div>
+                            <div class="item-details">Duke's Beach House or Leilani's</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="booking-info">
+                    <h4>Flight Confirmation</h4>
+                    <p><strong>WDOGMQ</strong> • Hawaiian Airlines</p>
+                </div>
             </div>
-            <div class="prep-box">
-                <h4>🎒 Pack for Today</h4>
-                <ul>
-                    <li>Carry-on snacks for the flight</li>
-                    <li>Swimsuits in easy-access bag</li>
-                    <li>Reef-safe sunscreen</li>
-                    <li>Flip flops for the pool</li>
-                </ul>
+
+            <!-- Day 2 -->
+            <div class="day-card day-2">
+                <div class="day-header">
+                    <span class="day-icon">💕</span>Saturday, Feb 14
+                    <span class="day-subtitle">Road to Hana • Valentine's Day</span>
+                </div>
+                <div class="prep-box">
+                    <h4>🎒 Pack for Today</h4>
+                    <ul>
+                        <li>Dramamine (620 curves!)</li>
+                        <li>Snacks & water bottles in cooler</li>
+                        <li>Water shoes for waterfalls</li>
+                        <li>Swimsuits (Twin Falls splash!)</li>
+                        <li>Camera/phone charger</li>
+                        <li>Cash for banana bread stands</li>
+                    </ul>
+                </div>
+                <div class="tip">
+                    <span class="tip-icon">⏰</span>
+                    <span>Leave by 7am to beat the crowds! 64 miles, 620 curves, 59 bridges ahead.</span>
+                </div>
+                <div class="checklist">
+                    <div class="checklist-item" data-id="2-1">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">7:00 AM</div>
+                            <div class="item-text">🚗 Depart for Road to Hana</div>
+                            <div class="item-details">Fill up gas, load the cooler!</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="2-2">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Mile 2</div>
+                            <div class="item-text">💦 Twin Falls</div>
+                            <div class="item-details">Easy walk, kids can splash in the pools</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="2-3">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Mile 10</div>
+                            <div class="item-text">🌿 Garden of Eden Arboretum</div>
+                            <div class="item-details">Paved paths, beautiful gardens, great photos</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="2-4">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Mile 17</div>
+                            <div class="item-text">📸 Ke'anae Peninsula Lookout</div>
+                            <div class="item-details">Stunning coastal views from the car</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="2-5">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">🍌 Halfway to Hana Stand</div>
+                            <div class="item-details">Best banana bread on the island!</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="2-6">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Mile 32</div>
+                            <div class="item-text">🖤 Wai'anapanapa State Park</div>
+                            <div class="item-details">Famous black sand beach!</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="2-7">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">🍔 Lunch in Hana Town</div>
+                            <div class="item-details">Hana Ranch Restaurant</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="2-8">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">🔙 Drive back (same route)</div>
+                            <div class="item-details">Jeep not allowed on backside road</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="2-9">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Evening</div>
+                            <div class="item-text">💕 Valentine's Dinner</div>
+                            <div class="item-details">Find a romantic spot together!</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="checklist">
-                <div class="checklist-item" data-id="1-1">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">7:20 AM PST</div>
-                        <div class="item-text">✈️ Depart Las Vegas</div>
-                        <div class="item-details">Hawaiian Airlines HA 931 • Arrive 11:44 AM HST</div>
-                    </div>
+
+            <!-- Day 3 -->
+            <div class="day-card day-3">
+                <div class="day-header">
+                    <span class="day-icon">🌊</span>Sunday, Feb 15
+                    <span class="day-subtitle">Submarine & North Coast</span>
                 </div>
-                <div class="checklist-item" data-id="1-2">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">12:00 PM</div>
-                        <div class="item-text">🚙 Pick up Jeep at airport</div>
-                        <div class="item-details">Avis counter • Conf: 02256960US6</div>
-                    </div>
+                <div class="prep-box">
+                    <h4>🎒 Pack for Today</h4>
+                    <ul>
+                        <li>Comfortable clothes for submarine</li>
+                        <li>Camera for coastal drive</li>
+                        <li>Cash for Julia's banana bread</li>
+                        <li>Swimsuits for afternoon pool</li>
+                        <li>Light jacket (can be windy at blowhole)</li>
+                    </ul>
                 </div>
-                <div class="checklist-item" data-id="1-3">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">🛒 Quick grocery stop</div>
-                        <div class="item-details">Snacks, drinks, reef-safe sunscreen</div>
+                <div class="checklist">
+                    <div class="checklist-item" data-id="3-1">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">9:00 AM</div>
+                            <div class="item-text">⚓ Atlantis Submarine</div>
+                            <div class="item-details">Lahaina Harbor • BOOKED ✓</div>
+                        </div>
                     </div>
-                </div>
-                <div class="checklist-item" data-id="1-4">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">4:00 PM</div>
-                        <div class="item-text">🏨 Check into hotel</div>
-                        <div class="item-details">Outrigger Honua Kai Resort • Conf: 949851462</div>
+                    <div class="checklist-item" data-id="3-2">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">~11:15 AM</div>
+                            <div class="item-text">🚗 Start scenic drive from Kapalua</div>
+                        </div>
                     </div>
-                </div>
-                <div class="checklist-item" data-id="1-5">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Afternoon</div>
-                        <div class="item-text">🏖️ Pool & beach time!</div>
-                        <div class="item-details">Kaanapali Beach right at the hotel</div>
+                    <div class="checklist-item" data-id="3-3">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">🏊 Kapalua Tidepools</div>
+                            <div class="item-details">Beautiful natural pools by the coast</div>
+                        </div>
                     </div>
-                </div>
-                <div class="checklist-item" data-id="1-6">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Evening</div>
-                        <div class="item-text">🍽️ Casual dinner near hotel</div>
-                        <div class="item-details">Duke's Beach House or Leilani's</div>
+                    <div class="checklist-item" data-id="3-4">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">🦷 Dragon's Teeth</div>
+                            <div class="item-details">Last cell service! Take family photos 📸</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="3-5">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">💨 Nakalele Blowhole</div>
+                            <div class="item-details">Easy 100ft walk from road</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="3-6">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">🍌 Julia's Banana Bread</div>
+                            <div class="item-details">Kahakuloa Village • Cash only!</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="3-7">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">~4:00 PM</div>
+                            <div class="item-text">🏖️ Back to hotel for beach/pool</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="3-8">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Evening</div>
+                            <div class="item-text">🍽️ Casual dinner</div>
+                            <div class="item-details">Monkeypod Kitchen or room service</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="booking-info">
-                <h4>Flight Confirmation</h4>
-                <p><strong>WDOGMQ</strong> • Hawaiian Airlines</p>
+
+            <!-- Day 4 -->
+            <div class="day-card day-4">
+                <div class="day-header">
+                    <span class="day-icon">🌋</span>Monday, Feb 16
+                    <span class="day-subtitle">Haleakala & Upcountry</span>
+                </div>
+                <div class="prep-box">
+                    <h4>🎒 Pack for Today</h4>
+                    <ul>
+                        <li><strong>WARM JACKETS!</strong> Summit is ~40°F</li>
+                        <li>Long pants for everyone</li>
+                        <li>Closed-toe shoes (not flip flops)</li>
+                        <li>Layers you can remove on way down</li>
+                        <li>Blanket to wrap up (optional)</li>
+                        <li>Sunglasses (very bright at 10,000 ft)</li>
+                    </ul>
+                </div>
+                <div class="tip">
+                    <span class="tip-icon">🥶</span>
+                    <span>Beach level is 80°F but the summit is 40°F! You'll go through multiple climate zones.</span>
+                </div>
+                <div class="checklist">
+                    <div class="checklist-item" data-id="4-1">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Mid-morning</div>
+                            <div class="item-text">🚗 Drive to Haleakala Crater</div>
+                            <div class="item-details">10,023 ft elevation • Amazing views!</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="4-2">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">📸 Explore the summit</div>
+                            <div class="item-details">Photos at the crater overlook</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="4-3">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">💜 Ali'i Kula Lavender Farm</div>
+                            <div class="item-details">Gentle stroll through lavender fields</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="4-4">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">🐐 Surfing Goat Dairy</div>
+                            <div class="item-details">Fun for kids, cheese tasting!</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="4-5">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Lunch</div>
+                            <div class="item-text">🍽️ Kula Lodge</div>
+                            <div class="item-details">Incredible upcountry views</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="4-6">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Dinner</div>
+                            <div class="item-text">⭐ Hali'imaile General Store</div>
+                            <div class="item-details">Famous farm-to-table • Walk-in friendly</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="4-7">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Evening</div>
+                            <div class="item-text">🧳 Pack for departure tomorrow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 5 -->
+            <div class="day-card day-5">
+                <div class="day-header">
+                    <span class="day-icon">🏠</span>Tuesday, Feb 17
+                    <span class="day-subtitle">Final Beach & Home</span>
+                </div>
+                <div class="prep-box">
+                    <h4>🎒 Before Checkout</h4>
+                    <ul>
+                        <li>Check all drawers & closets</li>
+                        <li>Grab phone chargers</li>
+                        <li>Check under beds (kids' stuff!)</li>
+                        <li>Return room keys</li>
+                        <li>Keep swimsuits accessible for final swim</li>
+                    </ul>
+                </div>
+                <div class="checklist">
+                    <div class="checklist-item" data-id="5-1">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">Morning</div>
+                            <div class="item-text">🏖️ Final pool/beach time!</div>
+                            <div class="item-details">One last swim for the kids</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="5-2">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">11:00 AM</div>
+                            <div class="item-text">🏨 Check out of hotel</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="5-3">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">🚙 Return Jeep at airport</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="5-4">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-text">🍱 Lunch at Tin Roof (Kahului)</div>
+                            <div class="item-details">Amazing poke bowls near airport</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item" data-id="5-5">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-time">11:50 AM HST</div>
+                            <div class="item-text">✈️ Depart Maui</div>
+                            <div class="item-details">HA 932 • Arrive Las Vegas 7:25 PM PST</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="booking-info">
+                    <h4>Flight Home</h4>
+                    <p><strong>WDOGMQ</strong> • Hawaiian Airlines HA 932</p>
+                </div>
             </div>
         </div>
 
-        <!-- Day 2 -->
-        <div class="day-card day-2">
-            <div class="day-header">
-                <span class="day-icon">💕</span>Saturday, Feb 14
-                <span class="day-subtitle">Road to Hana • Valentine's Day</span>
-            </div>
-            <div class="prep-box">
-                <h4>🎒 Pack for Today</h4>
-                <ul>
-                    <li>Dramamine (620 curves!)</li>
-                    <li>Snacks & water bottles in cooler</li>
-                    <li>Water shoes for waterfalls</li>
-                    <li>Swimsuits (Twin Falls splash!)</li>
-                    <li>Camera/phone charger</li>
-                    <li>Cash for banana bread stands</li>
-                </ul>
-            </div>
-            <div class="tip">
-                <span class="tip-icon">⏰</span>
-                <span>Leave by 7am to beat the crowds! 64 miles, 620 curves, 59 bridges ahead.</span>
-            </div>
-            <div class="checklist">
-                <div class="checklist-item" data-id="2-1">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">7:00 AM</div>
-                        <div class="item-text">🚗 Depart for Road to Hana</div>
-                        <div class="item-details">Fill up gas, load the cooler!</div>
-                    </div>
+        <!-- Packing Lists Tab -->
+        <div class="tab-content" id="packing">
+            
+            <!-- Calvin's Packing List -->
+            <div class="packing-person calvin">
+                <div class="person-header">
+                    <span class="emoji">👨</span>
+                    <span class="info">
+                        <span class="name">Calvin</span>
+                        <span class="subtitle">Dad's gear</span>
+                    </span>
+                    <span class="person-progress" id="calvin-progress">0/0</span>
                 </div>
-                <div class="checklist-item" data-id="2-2">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Mile 2</div>
-                        <div class="item-text">💦 Twin Falls</div>
-                        <div class="item-details">Easy walk, kids can splash in the pools</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">👕 Clothing</div>
+                    <div class="packing-item" data-id="calvin-1"><div class="pack-checkbox"></div><span class="pack-text">T-shirts / casual shirts (5)</span></div>
+                    <div class="packing-item" data-id="calvin-2"><div class="pack-checkbox"></div><span class="pack-text">Shorts (3-4 pairs)</span></div>
+                    <div class="packing-item" data-id="calvin-3"><div class="pack-checkbox"></div><span class="pack-text">Long pants for Haleakala</span></div>
+                    <div class="packing-item" data-id="calvin-4"><div class="pack-checkbox"></div><span class="pack-text">Swim trunks (2-3)</span></div>
+                    <div class="packing-item" data-id="calvin-5"><div class="pack-checkbox"></div><span class="pack-text">Underwear (5-6)</span></div>
+                    <div class="packing-item" data-id="calvin-6"><div class="pack-checkbox"></div><span class="pack-text">Socks (2-3 pairs)</span></div>
+                    <div class="packing-item" data-id="calvin-7"><div class="pack-checkbox"></div><span class="pack-text">Nice dinner shirt</span><span class="pack-note">Valentine's!</span></div>
+                    <div class="packing-item" data-id="calvin-8"><div class="pack-checkbox"></div><span class="pack-text">Warm jacket/hoodie</span><span class="pack-note">Haleakala 40°F!</span></div>
+                    <div class="packing-item" data-id="calvin-9"><div class="pack-checkbox"></div><span class="pack-text">Light windbreaker</span></div>
                 </div>
-                <div class="checklist-item" data-id="2-3">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Mile 10</div>
-                        <div class="item-text">🌿 Garden of Eden Arboretum</div>
-                        <div class="item-details">Paved paths, beautiful gardens, great photos</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">👟 Footwear</div>
+                    <div class="packing-item" data-id="calvin-10"><div class="pack-checkbox"></div><span class="pack-text">Flip flops / sandals</span></div>
+                    <div class="packing-item" data-id="calvin-11"><div class="pack-checkbox"></div><span class="pack-text">Comfortable walking shoes</span></div>
+                    <div class="packing-item" data-id="calvin-12"><div class="pack-checkbox"></div><span class="pack-text">Water shoes (optional)</span><span class="pack-note">For waterfalls</span></div>
                 </div>
-                <div class="checklist-item" data-id="2-4">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Mile 17</div>
-                        <div class="item-text">📸 Ke'anae Peninsula Lookout</div>
-                        <div class="item-details">Stunning coastal views from the car</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">🎒 Accessories & Gear</div>
+                    <div class="packing-item" data-id="calvin-13"><div class="pack-checkbox"></div><span class="pack-text">Sunglasses</span></div>
+                    <div class="packing-item" data-id="calvin-14"><div class="pack-checkbox"></div><span class="pack-text">Hat / cap</span></div>
+                    <div class="packing-item" data-id="calvin-15"><div class="pack-checkbox"></div><span class="pack-text">Watch</span></div>
+                    <div class="packing-item" data-id="calvin-16"><div class="pack-checkbox"></div><span class="pack-text">Wallet with cash</span><span class="pack-note">Banana bread stands!</span></div>
+                    <div class="packing-item" data-id="calvin-17"><div class="pack-checkbox"></div><span class="pack-text">Driver's license</span></div>
                 </div>
-                <div class="checklist-item" data-id="2-5">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">🍌 Halfway to Hana Stand</div>
-                        <div class="item-details">Best banana bread on the island!</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">🧴 Toiletries</div>
+                    <div class="packing-item" data-id="calvin-18"><div class="pack-checkbox"></div><span class="pack-text">Toothbrush & toothpaste</span></div>
+                    <div class="packing-item" data-id="calvin-19"><div class="pack-checkbox"></div><span class="pack-text">Deodorant</span></div>
+                    <div class="packing-item" data-id="calvin-20"><div class="pack-checkbox"></div><span class="pack-text">Razor / shaving kit</span></div>
+                    <div class="packing-item" data-id="calvin-21"><div class="pack-checkbox"></div><span class="pack-text">Reef-safe sunscreen</span></div>
+                    <div class="packing-item" data-id="calvin-22"><div class="pack-checkbox"></div><span class="pack-text">Any medications</span></div>
+                    <div class="packing-item" data-id="calvin-23"><div class="pack-checkbox"></div><span class="pack-text">Dramamine</span><span class="pack-note">Road to Hana!</span></div>
                 </div>
-                <div class="checklist-item" data-id="2-6">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Mile 32</div>
-                        <div class="item-text">🖤 Wai'anapanapa State Park</div>
-                        <div class="item-details">Famous black sand beach!</div>
-                    </div>
-                </div>
-                <div class="checklist-item" data-id="2-7">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">🍔 Lunch in Hana Town</div>
-                        <div class="item-details">Hana Ranch Restaurant</div>
-                    </div>
-                </div>
-                <div class="checklist-item" data-id="2-8">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">🔙 Drive back (same route)</div>
-                        <div class="item-details">Jeep not allowed on backside road</div>
-                    </div>
-                </div>
-                <div class="checklist-item" data-id="2-9">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Evening</div>
-                        <div class="item-text">💕 Valentine's Dinner</div>
-                        <div class="item-details">Find a romantic spot together!</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">📱 Tech</div>
+                    <div class="packing-item" data-id="calvin-24"><div class="pack-checkbox"></div><span class="pack-text">Phone charger</span></div>
+                    <div class="packing-item" data-id="calvin-25"><div class="pack-checkbox"></div><span class="pack-text">Portable battery pack</span></div>
+                    <div class="packing-item" data-id="calvin-26"><div class="pack-checkbox"></div><span class="pack-text">Camera (optional)</span></div>
+                    <div class="packing-item" data-id="calvin-27"><div class="pack-checkbox"></div><span class="pack-text">AirPods / headphones</span></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Day 3 -->
-        <div class="day-card day-3">
-            <div class="day-header">
-                <span class="day-icon">🌊</span>Sunday, Feb 15
-                <span class="day-subtitle">Submarine & North Coast</span>
-            </div>
-            <div class="prep-box">
-                <h4>🎒 Pack for Today</h4>
-                <ul>
-                    <li>Comfortable clothes for submarine</li>
-                    <li>Camera for coastal drive</li>
-                    <li>Cash for Julia's banana bread</li>
-                    <li>Swimsuits for afternoon pool</li>
-                    <li>Light jacket (can be windy at blowhole)</li>
-                </ul>
-            </div>
-            <div class="checklist">
-                <div class="checklist-item" data-id="3-1">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">9:00 AM</div>
-                        <div class="item-text">⚓ Atlantis Submarine</div>
-                        <div class="item-details">Lahaina Harbor • BOOKED ✓</div>
-                    </div>
+            <!-- Karissa's Packing List -->
+            <div class="packing-person karissa">
+                <div class="person-header">
+                    <span class="emoji">👩</span>
+                    <span class="info">
+                        <span class="name">Karissa</span>
+                        <span class="subtitle">Mom's essentials</span>
+                    </span>
+                    <span class="person-progress" id="karissa-progress">0/0</span>
                 </div>
-                <div class="checklist-item" data-id="3-2">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">~11:15 AM</div>
-                        <div class="item-text">🚗 Start scenic drive from Kapalua</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">👗 Clothing</div>
+                    <div class="packing-item" data-id="karissa-1"><div class="pack-checkbox"></div><span class="pack-text">Casual tops (5-6)</span></div>
+                    <div class="packing-item" data-id="karissa-2"><div class="pack-checkbox"></div><span class="pack-text">Shorts / capris (3-4)</span></div>
+                    <div class="packing-item" data-id="karissa-3"><div class="pack-checkbox"></div><span class="pack-text">Sundresses (2-3)</span></div>
+                    <div class="packing-item" data-id="karissa-4"><div class="pack-checkbox"></div><span class="pack-text">Long pants for Haleakala</span></div>
+                    <div class="packing-item" data-id="karissa-5"><div class="pack-checkbox"></div><span class="pack-text">Swimsuits (2-3)</span></div>
+                    <div class="packing-item" data-id="karissa-6"><div class="pack-checkbox"></div><span class="pack-text">Cover-ups / sarong</span></div>
+                    <div class="packing-item" data-id="karissa-7"><div class="pack-checkbox"></div><span class="pack-text">Undergarments</span></div>
+                    <div class="packing-item" data-id="karissa-8"><div class="pack-checkbox"></div><span class="pack-text">Nice outfit for dinner</span><span class="pack-note">Valentine's!</span></div>
+                    <div class="packing-item" data-id="karissa-9"><div class="pack-checkbox"></div><span class="pack-text">Warm jacket/sweater</span><span class="pack-note">Haleakala 40°F!</span></div>
+                    <div class="packing-item" data-id="karissa-10"><div class="pack-checkbox"></div><span class="pack-text">Light cardigan</span></div>
+                    <div class="packing-item" data-id="karissa-11"><div class="pack-checkbox"></div><span class="pack-text">Pajamas</span></div>
                 </div>
-                <div class="checklist-item" data-id="3-3">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">🏊 Kapalua Tidepools</div>
-                        <div class="item-details">Beautiful natural pools by the coast</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">👡 Footwear</div>
+                    <div class="packing-item" data-id="karissa-12"><div class="pack-checkbox"></div><span class="pack-text">Flip flops / sandals</span></div>
+                    <div class="packing-item" data-id="karissa-13"><div class="pack-checkbox"></div><span class="pack-text">Comfortable walking shoes</span></div>
+                    <div class="packing-item" data-id="karissa-14"><div class="pack-checkbox"></div><span class="pack-text">Nice sandals for dinner</span></div>
                 </div>
-                <div class="checklist-item" data-id="3-4">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">🦷 Dragon's Teeth</div>
-                        <div class="item-details">Last cell service! Take family photos 📸</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">🎒 Accessories</div>
+                    <div class="packing-item" data-id="karissa-15"><div class="pack-checkbox"></div><span class="pack-text">Sunglasses</span></div>
+                    <div class="packing-item" data-id="karissa-16"><div class="pack-checkbox"></div><span class="pack-text">Sun hat</span></div>
+                    <div class="packing-item" data-id="karissa-17"><div class="pack-checkbox"></div><span class="pack-text">Beach bag / tote</span></div>
+                    <div class="packing-item" data-id="karissa-18"><div class="pack-checkbox"></div><span class="pack-text">Jewelry (minimal)</span></div>
+                    <div class="packing-item" data-id="karissa-19"><div class="pack-checkbox"></div><span class="pack-text">Purse / crossbody bag</span></div>
                 </div>
-                <div class="checklist-item" data-id="3-5">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">💨 Nakalele Blowhole</div>
-                        <div class="item-details">Easy 100ft walk from road</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">🧴 Toiletries & Beauty</div>
+                    <div class="packing-item" data-id="karissa-20"><div class="pack-checkbox"></div><span class="pack-text">Toothbrush & toothpaste</span></div>
+                    <div class="packing-item" data-id="karissa-21"><div class="pack-checkbox"></div><span class="pack-text">Skincare essentials</span></div>
+                    <div class="packing-item" data-id="karissa-22"><div class="pack-checkbox"></div><span class="pack-text">Makeup bag</span></div>
+                    <div class="packing-item" data-id="karissa-23"><div class="pack-checkbox"></div><span class="pack-text">Hair products / styling tools</span></div>
+                    <div class="packing-item" data-id="karissa-24"><div class="pack-checkbox"></div><span class="pack-text">Hair ties / clips</span></div>
+                    <div class="packing-item" data-id="karissa-25"><div class="pack-checkbox"></div><span class="pack-text">Reef-safe sunscreen</span></div>
+                    <div class="packing-item" data-id="karissa-26"><div class="pack-checkbox"></div><span class="pack-text">Lip balm with SPF</span></div>
+                    <div class="packing-item" data-id="karissa-27"><div class="pack-checkbox"></div><span class="pack-text">Any medications</span></div>
+                    <div class="packing-item" data-id="karissa-28"><div class="pack-checkbox"></div><span class="pack-text">Dramamine</span><span class="pack-note">Road to Hana!</span></div>
                 </div>
-                <div class="checklist-item" data-id="3-6">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">🍌 Julia's Banana Bread</div>
-                        <div class="item-details">Kahakuloa Village • Cash only!</div>
-                    </div>
-                </div>
-                <div class="checklist-item" data-id="3-7">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">~4:00 PM</div>
-                        <div class="item-text">🏖️ Back to hotel for beach/pool</div>
-                    </div>
-                </div>
-                <div class="checklist-item" data-id="3-8">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Evening</div>
-                        <div class="item-text">🍽️ Casual dinner</div>
-                        <div class="item-details">Monkeypod Kitchen or room service</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">📱 Tech</div>
+                    <div class="packing-item" data-id="karissa-29"><div class="pack-checkbox"></div><span class="pack-text">Phone charger</span></div>
+                    <div class="packing-item" data-id="karissa-30"><div class="pack-checkbox"></div><span class="pack-text">Kindle / book</span></div>
+                    <div class="packing-item" data-id="karissa-31"><div class="pack-checkbox"></div><span class="pack-text">AirPods / headphones</span></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Day 4 -->
-        <div class="day-card day-4">
-            <div class="day-header">
-                <span class="day-icon">🌋</span>Monday, Feb 16
-                <span class="day-subtitle">Haleakala & Upcountry</span>
-            </div>
-            <div class="prep-box">
-                <h4>🎒 Pack for Today</h4>
-                <ul>
-                    <li><strong>WARM JACKETS!</strong> Summit is ~40°F</li>
-                    <li>Long pants for everyone</li>
-                    <li>Closed-toe shoes (not flip flops)</li>
-                    <li>Layers you can remove on way down</li>
-                    <li>Blanket to wrap up (optional)</li>
-                    <li>Sunglasses (very bright at 10,000 ft)</li>
-                </ul>
-            </div>
-            <div class="tip">
-                <span class="tip-icon">🥶</span>
-                <span>Beach level is 80°F but the summit is 40°F! You'll go through multiple climate zones.</span>
-            </div>
-            <div class="checklist">
-                <div class="checklist-item" data-id="4-1">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Mid-morning</div>
-                        <div class="item-text">🚗 Drive to Haleakala Crater</div>
-                        <div class="item-details">10,023 ft elevation • Amazing views!</div>
-                    </div>
+            <!-- Christian's Packing List -->
+            <div class="packing-person christian">
+                <div class="person-header">
+                    <span class="emoji">🧒</span>
+                    <span class="info">
+                        <span class="name">Christian</span>
+                        <span class="subtitle">Teen essentials</span>
+                    </span>
+                    <span class="person-progress" id="christian-progress">0/0</span>
                 </div>
-                <div class="checklist-item" data-id="4-2">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">📸 Explore the summit</div>
-                        <div class="item-details">Photos at the crater overlook</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">👕 Clothing</div>
+                    <div class="packing-item" data-id="christian-1"><div class="pack-checkbox"></div><span class="pack-text">T-shirts (5-6)</span></div>
+                    <div class="packing-item" data-id="christian-2"><div class="pack-checkbox"></div><span class="pack-text">Shorts (4-5 pairs)</span></div>
+                    <div class="packing-item" data-id="christian-3"><div class="pack-checkbox"></div><span class="pack-text">Long pants for Haleakala</span></div>
+                    <div class="packing-item" data-id="christian-4"><div class="pack-checkbox"></div><span class="pack-text">Swim trunks (2-3)</span></div>
+                    <div class="packing-item" data-id="christian-5"><div class="pack-checkbox"></div><span class="pack-text">Underwear (6+)</span></div>
+                    <div class="packing-item" data-id="christian-6"><div class="pack-checkbox"></div><span class="pack-text">Socks (3-4 pairs)</span></div>
+                    <div class="packing-item" data-id="christian-7"><div class="pack-checkbox"></div><span class="pack-text">Warm hoodie/jacket</span><span class="pack-note">Haleakala 40°F!</span></div>
+                    <div class="packing-item" data-id="christian-8"><div class="pack-checkbox"></div><span class="pack-text">Nice shirt for dinner</span></div>
+                    <div class="packing-item" data-id="christian-9"><div class="pack-checkbox"></div><span class="pack-text">Pajamas</span></div>
                 </div>
-                <div class="checklist-item" data-id="4-3">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">💜 Ali'i Kula Lavender Farm</div>
-                        <div class="item-details">Gentle stroll through lavender fields</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">👟 Footwear</div>
+                    <div class="packing-item" data-id="christian-10"><div class="pack-checkbox"></div><span class="pack-text">Flip flops / slides</span></div>
+                    <div class="packing-item" data-id="christian-11"><div class="pack-checkbox"></div><span class="pack-text">Sneakers / athletic shoes</span></div>
+                    <div class="packing-item" data-id="christian-12"><div class="pack-checkbox"></div><span class="pack-text">Water shoes (optional)</span><span class="pack-note">For waterfalls</span></div>
                 </div>
-                <div class="checklist-item" data-id="4-4">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">🐐 Surfing Goat Dairy</div>
-                        <div class="item-details">Fun for kids, cheese tasting!</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">🎒 Accessories</div>
+                    <div class="packing-item" data-id="christian-13"><div class="pack-checkbox"></div><span class="pack-text">Sunglasses</span></div>
+                    <div class="packing-item" data-id="christian-14"><div class="pack-checkbox"></div><span class="pack-text">Hat / cap</span></div>
+                    <div class="packing-item" data-id="christian-15"><div class="pack-checkbox"></div><span class="pack-text">Backpack</span></div>
                 </div>
-                <div class="checklist-item" data-id="4-5">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Lunch</div>
-                        <div class="item-text">🍽️ Kula Lodge</div>
-                        <div class="item-details">Incredible upcountry views</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">🧴 Toiletries</div>
+                    <div class="packing-item" data-id="christian-16"><div class="pack-checkbox"></div><span class="pack-text">Toothbrush & toothpaste</span></div>
+                    <div class="packing-item" data-id="christian-17"><div class="pack-checkbox"></div><span class="pack-text">Deodorant</span></div>
+                    <div class="packing-item" data-id="christian-18"><div class="pack-checkbox"></div><span class="pack-text">Hair products (if needed)</span></div>
+                    <div class="packing-item" data-id="christian-19"><div class="pack-checkbox"></div><span class="pack-text">Sunscreen</span></div>
+                    <div class="packing-item" data-id="christian-20"><div class="pack-checkbox"></div><span class="pack-text">Dramamine</span><span class="pack-note">Road to Hana!</span></div>
                 </div>
-                <div class="checklist-item" data-id="4-6">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Dinner</div>
-                        <div class="item-text">⭐ Hali'imaile General Store</div>
-                        <div class="item-details">Famous farm-to-table • Walk-in friendly</div>
-                    </div>
-                </div>
-                <div class="checklist-item" data-id="4-7">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Evening</div>
-                        <div class="item-text">🧳 Pack for departure tomorrow</div>
-                    </div>
+                <div class="packing-category">
+                    <div class="category-title">📱 Tech & Entertainment</div>
+                    <div class="packing-item" data-id="christian-21"><div class="pack-checkbox"></div><span class="pack-text">Phone charger</span></div>
+                    <div class="packing-item" data-id="christian-22"><div class="pack-checkbox"></div><span class="pack-text">AirPods / headphones</span></div>
+                    <div class="packing-item" data-id="christian-23"><div class="pack-checkbox"></div><span class="pack-text">Nintendo Switch (optional)</span></div>
+                    <div class="packing-item" data-id="christian-24"><div class="pack-checkbox"></div><span class="pack-text">Downloaded shows/movies</span><span class="pack-note">For flight!</span></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Day 5 -->
-        <div class="day-card day-5">
-            <div class="day-header">
-                <span class="day-icon">🏠</span>Tuesday, Feb 17
-                <span class="day-subtitle">Final Beach & Home</span>
+            <!-- Victoria's Packing List -->
+            <div class="packing-person victoria">
+                <div class="person-header">
+                    <span class="emoji">👧</span>
+                    <span class="info">
+                        <span class="name">Victoria</span>
+                        <span class="subtitle">Princess essentials</span>
+                    </span>
+                    <span class="person-progress" id="victoria-progress">0/0</span>
+                </div>
+                <div class="packing-category">
+                    <div class="category-title">👗 Clothing</div>
+                    <div class="packing-item" data-id="victoria-1"><div class="pack-checkbox"></div><span class="pack-text">T-shirts / tops (5-6)</span></div>
+                    <div class="packing-item" data-id="victoria-2"><div class="pack-checkbox"></div><span class="pack-text">Shorts (3-4 pairs)</span></div>
+                    <div class="packing-item" data-id="victoria-3"><div class="pack-checkbox"></div><span class="pack-text">Sundresses (2-3)</span></div>
+                    <div class="packing-item" data-id="victoria-4"><div class="pack-checkbox"></div><span class="pack-text">Long pants for Haleakala</span></div>
+                    <div class="packing-item" data-id="victoria-5"><div class="pack-checkbox"></div><span class="pack-text">Swimsuits (2-3)</span></div>
+                    <div class="packing-item" data-id="victoria-6"><div class="pack-checkbox"></div><span class="pack-text">Cover-up / rash guard</span></div>
+                    <div class="packing-item" data-id="victoria-7"><div class="pack-checkbox"></div><span class="pack-text">Underwear (6+)</span></div>
+                    <div class="packing-item" data-id="victoria-8"><div class="pack-checkbox"></div><span class="pack-text">Warm jacket/hoodie</span><span class="pack-note">Haleakala 40°F!</span></div>
+                    <div class="packing-item" data-id="victoria-9"><div class="pack-checkbox"></div><span class="pack-text">Light sweater/cardigan</span></div>
+                    <div class="packing-item" data-id="victoria-10"><div class="pack-checkbox"></div><span class="pack-text">Pajamas (2 sets)</span></div>
+                </div>
+                <div class="packing-category">
+                    <div class="category-title">👡 Footwear</div>
+                    <div class="packing-item" data-id="victoria-11"><div class="pack-checkbox"></div><span class="pack-text">Flip flops / sandals</span></div>
+                    <div class="packing-item" data-id="victoria-12"><div class="pack-checkbox"></div><span class="pack-text">Sneakers / comfy shoes</span></div>
+                    <div class="packing-item" data-id="victoria-13"><div class="pack-checkbox"></div><span class="pack-text">Water shoes</span><span class="pack-note">For waterfalls!</span></div>
+                </div>
+                <div class="packing-category">
+                    <div class="category-title">🎒 Accessories</div>
+                    <div class="packing-item" data-id="victoria-14"><div class="pack-checkbox"></div><span class="pack-text">Sunglasses</span></div>
+                    <div class="packing-item" data-id="victoria-15"><div class="pack-checkbox"></div><span class="pack-text">Sun hat</span></div>
+                    <div class="packing-item" data-id="victoria-16"><div class="pack-checkbox"></div><span class="pack-text">Hair ties & clips</span></div>
+                    <div class="packing-item" data-id="victoria-17"><div class="pack-checkbox"></div><span class="pack-text">Small backpack</span></div>
+                </div>
+                <div class="packing-category">
+                    <div class="category-title">🧴 Toiletries</div>
+                    <div class="packing-item" data-id="victoria-18"><div class="pack-checkbox"></div><span class="pack-text">Toothbrush & toothpaste</span></div>
+                    <div class="packing-item" data-id="victoria-19"><div class="pack-checkbox"></div><span class="pack-text">Hairbrush</span></div>
+                    <div class="packing-item" data-id="victoria-20"><div class="pack-checkbox"></div><span class="pack-text">Kids sunscreen</span></div>
+                    <div class="packing-item" data-id="victoria-21"><div class="pack-checkbox"></div><span class="pack-text">Chapstick</span></div>
+                    <div class="packing-item" data-id="victoria-22"><div class="pack-checkbox"></div><span class="pack-text">Dramamine (kids)</span><span class="pack-note">Road to Hana!</span></div>
+                </div>
+                <div class="packing-category">
+                    <div class="category-title">🎮 Entertainment & Comfort</div>
+                    <div class="packing-item" data-id="victoria-23"><div class="pack-checkbox"></div><span class="pack-text">iPad / tablet</span></div>
+                    <div class="packing-item" data-id="victoria-24"><div class="pack-checkbox"></div><span class="pack-text">Tablet charger</span></div>
+                    <div class="packing-item" data-id="victoria-25"><div class="pack-checkbox"></div><span class="pack-text">Headphones</span></div>
+                    <div class="packing-item" data-id="victoria-26"><div class="pack-checkbox"></div><span class="pack-text">Downloaded shows/games</span><span class="pack-note">For flight!</span></div>
+                    <div class="packing-item" data-id="victoria-27"><div class="pack-checkbox"></div><span class="pack-text">Stuffed animal / comfort item</span></div>
+                    <div class="packing-item" data-id="victoria-28"><div class="pack-checkbox"></div><span class="pack-text">Coloring book / activity book</span></div>
+                    <div class="packing-item" data-id="victoria-29"><div class="pack-checkbox"></div><span class="pack-text">Snacks for the plane</span></div>
+                </div>
             </div>
-            <div class="prep-box">
-                <h4>🎒 Before Checkout</h4>
-                <ul>
-                    <li>Check all drawers & closets</li>
-                    <li>Grab phone chargers</li>
-                    <li>Check under beds (kids' stuff!)</li>
-                    <li>Return room keys</li>
-                    <li>Keep swimsuits accessible for final swim</li>
-                </ul>
-            </div>
-            <div class="checklist">
-                <div class="checklist-item" data-id="5-1">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">Morning</div>
-                        <div class="item-text">🏖️ Final pool/beach time!</div>
-                        <div class="item-details">One last swim for the kids</div>
-                    </div>
-                </div>
-                <div class="checklist-item" data-id="5-2">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">11:00 AM</div>
-                        <div class="item-text">🏨 Check out of hotel</div>
-                    </div>
-                </div>
-                <div class="checklist-item" data-id="5-3">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">🚙 Return Jeep at airport</div>
-                    </div>
-                </div>
-                <div class="checklist-item" data-id="5-4">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-text">🍱 Lunch at Tin Roof (Kahului)</div>
-                        <div class="item-details">Amazing poke bowls near airport</div>
-                    </div>
-                </div>
-                <div class="checklist-item" data-id="5-5">
-                    <div class="checkbox"></div>
-                    <div class="item-content">
-                        <div class="item-time">11:50 AM HST</div>
-                        <div class="item-text">✈️ Depart Maui</div>
-                        <div class="item-details">HA 932 • Arrive Las Vegas 7:25 PM PST</div>
-                    </div>
-                </div>
-            </div>
-            <div class="booking-info">
-                <h4>Flight Home</h4>
-                <p><strong>WDOGMQ</strong> • Hawaiian Airlines HA 932</p>
-            </div>
+            
         </div>
-
     </div>
 
     <script>
         // Load saved state
         const savedState = JSON.parse(localStorage.getItem('maui2026') || '{}');
         
-        // Apply saved state
-        document.querySelectorAll('.checklist-item').forEach(item => {
+        // Apply saved state to all checkable items
+        document.querySelectorAll('.checklist-item, .packing-item').forEach(item => {
             const id = item.dataset.id;
             if (savedState[id]) {
                 item.classList.add('completed');
             }
         });
         
-        // Update progress
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active tab button
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = btn.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabId).classList.add('active');
+                
+                // Update progress display
+                updateProgress();
+            });
+        });
+        
+        // Update progress based on active tab
         function updateProgress() {
-            const total = document.querySelectorAll('.checklist-item').length;
-            const completed = document.querySelectorAll('.checklist-item.completed').length;
+            const activeTab = document.querySelector('.tab-content.active');
+            let total, completed, label;
+            
+            if (activeTab.id === 'itinerary') {
+                total = document.querySelectorAll('#itinerary .checklist-item').length;
+                completed = document.querySelectorAll('#itinerary .checklist-item.completed').length;
+                label = 'adventures';
+            } else {
+                total = document.querySelectorAll('#packing .packing-item').length;
+                completed = document.querySelectorAll('#packing .packing-item.completed').length;
+                label = 'items packed';
+            }
+            
             const percent = total > 0 ? (completed / total) * 100 : 0;
             
             document.getElementById('progressFill').style.width = percent + '%';
-            document.getElementById('progressText').textContent = `${completed} of ${total}`;
+            document.getElementById('progressText').textContent = `${completed} of ${total} ${label}`;
+            
+            // Update individual person progress
+            ['calvin', 'karissa', 'christian', 'victoria'].forEach(person => {
+                const personTotal = document.querySelectorAll(`[data-id^="${person}-"]`).length;
+                const personCompleted = document.querySelectorAll(`[data-id^="${person}-"].completed`).length;
+                const progressEl = document.getElementById(`${person}-progress`);
+                if (progressEl) {
+                    progressEl.textContent = `${personCompleted}/${personTotal}`;
+                }
+            });
             
             // Celebration when all done!
             if (completed === total && total > 0) {
@@ -810,20 +1258,30 @@
         
         updateProgress();
         
-        // Handle clicks
+        // Handle clicks on checklist items
         document.querySelectorAll('.checklist-item').forEach(item => {
             item.addEventListener('click', () => {
                 item.classList.toggle('completed');
-                
-                // Save state
-                const id = item.dataset.id;
-                const state = JSON.parse(localStorage.getItem('maui2026') || '{}');
-                state[id] = item.classList.contains('completed');
-                localStorage.setItem('maui2026', JSON.stringify(state));
-                
+                saveState(item);
                 updateProgress();
             });
         });
+        
+        // Handle clicks on packing items
+        document.querySelectorAll('.packing-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('completed');
+                saveState(item);
+                updateProgress();
+            });
+        });
+        
+        function saveState(item) {
+            const id = item.dataset.id;
+            const state = JSON.parse(localStorage.getItem('maui2026') || '{}');
+            state[id] = item.classList.contains('completed');
+            localStorage.setItem('maui2026', JSON.stringify(state));
+        }
     </script>
 </body>
 </html>
