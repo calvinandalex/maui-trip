@@ -1192,20 +1192,19 @@
         // Track state locally
         let checklistState = JSON.parse(localStorage.getItem('maui2026') || '{}');
         let supabaseClient = null;
+        const SUPABASE_URL = 'https://wfwglzrsuuqidscdqgao.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmd2dsenJzdXVxaWRzY2RxZ2FvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4MTI4MDcsImV4cCI6MjA4NTM4ODgwN30.Tpnv0rJBE1WCmdpt-yHzLIbnNrpriFeAJQeY2y33VlM';
         
-        // Try to initialize Supabase (but don't break if it fails)
+        // Try to initialize Supabase
         try {
             if (window.supabase && window.supabase.createClient) {
-                supabaseClient = window.supabase.createClient(
-                    'https://wfwglzrsuuqidscdqgao.supabase.co',
-                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmd2dsenJzdXVxaWRzY2RxZ2FvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4MTI4MDcsImV4cCI6MjA4NTM4ODgwN30.Tpnv0rJBE1WCmdpt-yHzLIbnNrpriFeAJQeY2y33VlM'
-                );
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
             }
         } catch (e) {
-            console.log('Supabase not available, using local storage only');
+            console.log('Supabase init failed');
         }
         
-        // Apply saved state to UI on load
+        // Apply state to UI
         function applyStateToUI() {
             document.querySelectorAll('.checklist-item, .packing-item').forEach(item => {
                 const id = item.dataset.id;
@@ -1217,40 +1216,73 @@
             });
         }
         
-        // Load state from Supabase (async, non-blocking)
-        async function loadFromCloud() {
+        // Full sync: pull from cloud, merge with local, push local items to cloud
+        async function fullSync() {
             if (!supabaseClient) return;
             
             try {
-                const { data, error } = await supabaseClient
+                // 1. Get cloud state
+                const { data: cloudData, error } = await supabaseClient
                     .from('trip_checklist')
                     .select('*');
                 
-                if (!error && data) {
-                    data.forEach(item => {
-                        checklistState[item.id] = item.completed;
-                    });
-                    localStorage.setItem('maui2026', JSON.stringify(checklistState));
-                    applyStateToUI();
-                    updateProgress();
+                if (error) throw error;
+                
+                // 2. Build cloud state map
+                const cloudState = {};
+                (cloudData || []).forEach(item => {
+                    cloudState[item.id] = item.completed;
+                });
+                
+                // 3. Merge: cloud items override local, but keep local items not in cloud
+                const localState = { ...checklistState };
+                
+                // Apply cloud state (cloud wins)
+                Object.keys(cloudState).forEach(id => {
+                    checklistState[id] = cloudState[id];
+                });
+                
+                // 4. Find local items that need to be pushed to cloud
+                const toPush = [];
+                Object.keys(localState).forEach(id => {
+                    if (localState[id] && !cloudState[id]) {
+                        // Local has it checked, cloud doesn't have it - push to cloud
+                        toPush.push({ id, completed: true, updated_by: 'family' });
+                        checklistState[id] = true;
+                    }
+                });
+                
+                // 5. Push local checked items to cloud
+                if (toPush.length > 0) {
+                    await supabaseClient.from('trip_checklist').upsert(toPush);
                 }
+                
+                // 6. Save merged state locally
+                localStorage.setItem('maui2026', JSON.stringify(checklistState));
+                
+                // 7. Update UI
+                applyStateToUI();
+                updateProgress();
+                
+                console.log('Sync complete:', Object.keys(checklistState).filter(k => checklistState[k]).length, 'items checked');
             } catch (err) {
-                console.log('Cloud sync unavailable');
+                console.log('Sync error:', err);
             }
         }
         
-        // Save state
-        function saveState(id, completed) {
+        // Save single item
+        async function saveState(id, completed) {
             checklistState[id] = completed;
             localStorage.setItem('maui2026', JSON.stringify(checklistState));
             
-            // Sync to cloud if available
             if (supabaseClient) {
-                supabaseClient
-                    .from('trip_checklist')
-                    .upsert({ id, completed, updated_at: new Date().toISOString(), updated_by: 'family' })
-                    .then(() => {})
-                    .catch(() => {});
+                try {
+                    await supabaseClient
+                        .from('trip_checklist')
+                        .upsert({ id, completed, updated_at: new Date().toISOString(), updated_by: 'family' });
+                } catch (e) {
+                    console.log('Save failed:', e);
+                }
             }
         }
         
@@ -1266,6 +1298,7 @@
                         (payload) => {
                             if (payload.new) {
                                 checklistState[payload.new.id] = payload.new.completed;
+                                localStorage.setItem('maui2026', JSON.stringify(checklistState));
                                 const item = document.querySelector(`[data-id="${payload.new.id}"]`);
                                 if (item) {
                                     if (payload.new.completed) {
@@ -1280,7 +1313,7 @@
                     )
                     .subscribe();
             } catch (e) {
-                console.log('Real-time sync not available');
+                console.log('Real-time subscription failed');
             }
         }
         
@@ -1357,11 +1390,11 @@
             });
         });
         
-        // Initialize - apply local state first, then sync from cloud
-        applyStateToUI();
+        // Initialize
+        applyStateToUI();  // Show local state immediately
         updateProgress();
-        loadFromCloud();
-        subscribeToChanges();
+        fullSync();        // Then merge with cloud
+        subscribeToChanges();  // Listen for real-time updates
     </script>
 </body>
 </html>
