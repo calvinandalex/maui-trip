@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Alex Carter//Maui Trip//EN
+BEGIN:VEVENT
+UID:maui-whale-day-2026@calvinbagley.com
+DTSTAMP:20260213T200000Z
+DTSTART:20260215T190000Z
+DTEND:20260215T210000Z
+SUMMARY:🐋 World Whale Day Parade
+DESCRIPTION:Annual whale celebration parade!\nFree event with floats, music, and festivities.\n\nAfter (~11:30am): North coast scenic drive\n• Kapalua Tidepools\n• Dragon's Teeth\n• Nakalele Blowhole\n• Julia's Banana Bread (cash only!)
+LOCATION:South Kīhei Rd, Kīhei, HI 96753
+END:VEVENT
+END:VCALENDAR
